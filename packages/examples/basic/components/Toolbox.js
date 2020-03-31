@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -12,6 +12,7 @@ import { Button } from "./user/Button";
 import { Text } from "./user/Text";
 
 export const Toolbox = () => {
+  const [showMore, setShowMore] = useState(false);
   const { connectors } = useEditor();
 
   return (
@@ -62,6 +63,21 @@ export const Toolbox = () => {
             Card
           </MaterialButton>
         </Grid>
+        <button onClick={() => setShowMore(!showMore)}>
+          {showMore ? "Show less" : "Show more"}
+        </button>
+        {!!showMore && (
+          <>
+            <Grid container direction="column" item>
+              <MaterialButton
+                ref={(ref) => connectors.create(ref, <Card />)}
+                variant="contained"
+              >
+                Card
+              </MaterialButton>
+            </Grid>
+          </>
+        )}
       </Grid>
     </Box>
   );
